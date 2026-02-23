@@ -1,515 +1,406 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>인적성 검사 | GSAT 스타일</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --gsat-blue: #1e3a8a;
-      --gsat-blue-light: #2563eb;
-      --gsat-blue-bg: #eff6ff;
-      --gsat-border: #e2e8f0;
-      --gsat-text: #1e293b;
-      --gsat-text-muted: #64748b;
-      --gsat-white: #ffffff;
-      --gsat-shadow: 0 1px 3px rgba(30, 58, 138, 0.08);
-      --gsat-shadow-lg: 0 10px 40px rgba(30, 58, 138, 0.12);
-      --radius-sm: 8px;
-      --radius-md: 12px;
-      --radius-lg: 16px;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>마케팅 자동화 툴 프로젝트 · 회의 가이드</title>
+    <style>
+        :root {
+            --primary: #0f766e;
+            --primary-light: #ccfbf1;
+            --secondary: #64748b;
+            --success: #059669;
+            --warning: #d97706;
+            --danger: #dc2626;
+            --bg: #f0fdfa;
+        }
+        body { font-family: 'Pretendard', -apple-system, sans-serif; line-height: 1.65; color: #134e4a; background: linear-gradient(135deg, #f0fdfa 0%, #e0f2fe 100%); margin: 0; padding: 40px 20px; }
+        .wrapper { max-width: 960px; margin: 0 auto; background: white; padding: 44px 40px; border-radius: 20px; box-shadow: 0 4px 24px rgba(15, 118, 110, 0.08); border: 1px solid rgba(15, 118, 110, 0.12); }
+        header { text-align: center; margin-bottom: 48px; border-bottom: 2px solid var(--primary-light); padding-bottom: 24px; }
+        h1 { color: var(--primary); font-size: 1.85rem; font-weight: 700; margin-bottom: 12px; letter-spacing: -0.02em; }
+        .subtitle { color: var(--secondary); font-size: 0.95rem; margin-top: 8px; }
+        .badge { background: var(--primary); color: white; padding: 6px 16px; border-radius: 20px; font-size: 0.85rem; font-weight: 500; }
+        .timeline-note { background: #fff7ed; border-left: 4px solid var(--warning); padding: 12px 16px; margin: 20px 0; font-size: 0.9rem; border-radius: 0 8px 8px 0; }
 
-    * {
-      box-sizing: border-box;
-    }
+        h2 { border-left: 5px solid var(--primary); padding-left: 14px; margin-top: 36px; color: #0f766e; font-size: 1.25rem; }
+        h3 { color: #115e59; font-size: 1.05rem; margin-top: 24px; margin-bottom: 8px; }
+        p { margin: 10px 0; color: #334155; font-size: 0.95rem; }
 
-    body {
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: linear-gradient(165deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
-      color: var(--gsat-text);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
-    }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 18px 0; }
+        @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+        .option-card { border: 2px solid #e2e8f0; padding: 20px; border-radius: 12px; transition: all 0.25s; cursor: pointer; }
+        .option-card:hover { border-color: var(--primary); background: var(--primary-light); }
+        .option-card h3 { margin-top: 0; }
+        .tag { display: inline-block; padding: 3px 10px; border-radius: 6px; font-size: 0.75rem; margin-bottom: 10px; font-weight: 500; }
+        .tag-easy { background: #d1fae5; color: #065f46; }
+        .tag-hard { background: #fee2e2; color: #991b1b; }
 
-    /* 헤더 */
-    .header {
-      background: var(--gsat-white);
-      border-bottom: 1px solid var(--gsat-border);
-      padding: 18px 24px;
-      box-shadow: var(--gsat-shadow);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
+        .checklist { list-style: none; padding: 0; margin: 12px 0; }
+        .checklist li { background: #f0fdfa; margin-bottom: 10px; padding: 14px 16px; border-radius: 10px; display: flex; align-items: flex-start; gap: 12px; border: 1px solid #99f6e4; }
+        .checklist li input { margin-top: 2px; width: 18px; height: 18px; flex-shrink: 0; }
+        .checklist li strong { color: #0f766e; }
 
-    .header-inner {
-      max-width: 900px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
+        table { width: 100%; border-collapse: collapse; margin: 16px 0; font-size: 0.9rem; }
+        th, td { padding: 12px 14px; border: 1px solid #e2e8f0; text-align: left; }
+        th { background: #f0fdfa; color: #0f766e; font-weight: 600; }
+        .role-table input { width: 100%; max-width: 120px; padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 6px; }
 
-    .logo {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: var(--gsat-blue);
-      letter-spacing: -0.5px;
-    }
+        .decision-box { background: #f0fdfa; border: 1px solid #5eead4; padding: 20px 24px; border-radius: 12px; margin-top: 32px; color: #134e4a; }
+        .decision-box strong { color: var(--primary); }
+        .section-desc { font-size: 0.9rem; color: var(--secondary); margin-bottom: 14px; }
+        .highlight { background: #fef3c7; padding: 2px 6px; border-radius: 4px; }
 
-    .logo span {
-      color: var(--gsat-blue-light);
-      font-weight: 500;
-    }
-
-    .header-badge {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: var(--gsat-blue);
-      background: var(--gsat-blue-bg);
-      padding: 6px 12px;
-      border-radius: 999px;
-      letter-spacing: 0.5px;
-    }
-
-    /* 메인 */
-    main {
-      max-width: 900px;
-      margin: 0 auto;
-      padding: 32px 24px 48px;
-    }
-
-    /* 문제 카드 */
-    .problem-card {
-      background: var(--gsat-white);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--gsat-shadow-lg);
-      border: 1px solid var(--gsat-border);
-      overflow: hidden;
-      margin-bottom: 28px;
-    }
-
-    .problem-header {
-      background: linear-gradient(135deg, var(--gsat-blue) 0%, var(--gsat-blue-light) 100%);
-      color: var(--gsat-white);
-      padding: 20px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .problem-number {
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      opacity: 0.95;
-    }
-
-    .problem-category {
-      font-size: 0.8rem;
-      opacity: 0.85;
-      font-weight: 500;
-    }
-
-    .problem-body {
-      padding: 32px 28px 28px;
-    }
-
-    .problem-text {
-      font-size: 1.12rem;
-      font-weight: 500;
-      color: var(--gsat-text);
-      margin: 0 0 24px;
-      line-height: 1.75;
-      letter-spacing: -0.2px;
-    }
-
-    .choices {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    .choice {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 14px 18px;
-      margin-bottom: 10px;
-      background: var(--gsat-blue-bg);
-      border: 1px solid transparent;
-      border-radius: var(--radius-md);
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .choice:hover {
-      background: #dbeafe;
-      border-color: var(--gsat-blue-light);
-    }
-
-    .choice-num {
-      flex-shrink: 0;
-      width: 28px;
-      height: 28px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--gsat-white);
-      color: var(--gsat-blue);
-      font-weight: 700;
-      font-size: 0.9rem;
-      border-radius: 50%;
-      border: 1px solid var(--gsat-border);
-    }
-
-    .choice-text {
-      font-size: 1rem;
-      color: var(--gsat-text);
-      padding-top: 2px;
-    }
-
-    /* 버튼 영역 */
-    .action-area {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      align-items: center;
-      justify-content: center;
-      margin-top: 32px;
-      padding-top: 24px;
-      border-top: 1px solid var(--gsat-border);
-    }
-
-    .btn {
-      appearance: none;
-      border: none;
-      cursor: pointer;
-      font-family: inherit;
-      font-weight: 600;
-      font-size: 1rem;
-      letter-spacing: -0.2px;
-      border-radius: var(--radius-md);
-      transition: all 0.2s ease;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .btn-generate {
-      background: linear-gradient(135deg, var(--gsat-blue) 0%, var(--gsat-blue-light) 100%);
-      color: var(--gsat-white);
-      padding: 16px 36px;
-      box-shadow: 0 4px 14px rgba(30, 58, 138, 0.35);
-    }
-
-    .btn-generate:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(30, 58, 138, 0.4);
-    }
-
-    .btn-generate:active {
-      transform: translateY(0);
-    }
-
-    .btn-generate.loading {
-      pointer-events: none;
-      opacity: 0.85;
-    }
-
-    .btn-generate .icon {
-      width: 20px;
-      height: 20px;
-      stroke: currentColor;
-      flex-shrink: 0;
-    }
-
-    .btn-secondary {
-      background: var(--gsat-white);
-      color: var(--gsat-blue);
-      padding: 14px 28px;
-      border: 2px solid var(--gsat-blue-light);
-    }
-
-    .btn-secondary:hover {
-      background: var(--gsat-blue-bg);
-    }
-
-    /* 푸터 */
-    .footer {
-      text-align: center;
-      padding: 24px 16px;
-      font-size: 0.85rem;
-      color: var(--gsat-text-muted);
-    }
-
-    /* 반응형 */
-    @media (max-width: 600px) {
-      .header-inner {
-        justify-content: center;
-      }
-
-      main {
-        padding: 20px 16px 32px;
-      }
-
-      .problem-header,
-      .problem-body {
-        padding-left: 20px;
-        padding-right: 20px;
-      }
-
-      .problem-text {
-        font-size: 1.05rem;
-      }
-
-      .btn-generate {
-        padding: 14px 28px;
-        width: 100%;
-        max-width: 280px;
-      }
-    }
-
-    /* 로딩 스피너 */
-    .spinner {
-      width: 18px;
-      height: 18px;
-      border: 2px solid rgba(255,255,255,0.3);
-      border-top-color: #fff;
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* 선택 시 */
-    .choice.selected .choice-num {
-      background: var(--gsat-blue);
-      color: var(--gsat-white);
-      border-color: var(--gsat-blue);
-    }
-
-    .choice.selected {
-      background: #dbeafe;
-      border-color: var(--gsat-blue-light);
-    }
-
-    .choice.correct .choice-num { background: #059669; color: #fff; border-color: #059669; }
-    .choice.correct { background: #d1fae5; border-color: #10b981; }
-    .choice.wrong .choice-num { background: #dc2626; color: #fff; border-color: #dc2626; }
-    .choice.wrong { background: #fee2e2; border-color: #ef4444; }
-
-    .answer-area {
-      margin-top: 20px;
-      padding: 20px;
-      background: var(--gsat-blue-bg);
-      border-radius: var(--radius-md);
-      border: 1px solid var(--gsat-border);
-      display: none;
-    }
-    .answer-area.visible { display: block; }
-    .answer-area .answer-title { font-weight: 700; color: var(--gsat-blue); margin-bottom: 8px; font-size: 0.95rem; }
-    .answer-area .answer-value { font-weight: 600; color: var(--gsat-text); margin-bottom: 12px; }
-    .answer-area .explanation { font-size: 0.95rem; color: var(--gsat-text); line-height: 1.7; white-space: pre-line; }
-    .btn-check {
-      background: #059669;
-      color: #fff;
-      padding: 12px 24px;
-      margin-top: 8px;
-    }
-    .btn-check:hover { background: #047857; }
-    .problem-meta { font-size: 0.8rem; color: var(--gsat-text-muted); margin-left: 8px; }
-  </style>
+        /* 5일 로드맵 */
+        .roadmap-intro { background: #f0fdfa; border: 1px solid #99f6e4; padding: 16px 20px; border-radius: 12px; margin: 24px 0 20px 0; font-size: 0.9rem; color: #134e4a; }
+        .roadmap { margin-top: 20px; }
+        .roadmap-day { border: 1px solid #e2e8f0; border-radius: 14px; margin-bottom: 16px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.04); }
+        .roadmap-day-header { display: flex; align-items: center; gap: 14px; padding: 14px 20px; background: linear-gradient(90deg, #f0fdfa 0%, #e0f2fe 100%); border-bottom: 1px solid #e2e8f0; }
+        .roadmap-day-num { width: 44px; height: 44px; border-radius: 12px; background: var(--primary); color: white; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1rem; flex-shrink: 0; }
+        .roadmap-day-title { font-weight: 700; color: #0f766e; font-size: 1.05rem; }
+        .roadmap-day-sub { font-size: 0.8rem; color: var(--secondary); margin-top: 2px; }
+        .roadmap-day-body { padding: 18px 20px; }
+        .roadmap-day-body ul { margin: 0; padding-left: 20px; color: #334155; font-size: 0.9rem; line-height: 1.7; }
+        .roadmap-day-body .pm-mission { margin-top: 14px; padding: 12px 14px; background: #fff7ed; border-left: 4px solid var(--warning); border-radius: 0 8px 8px 0; font-size: 0.88rem; color: #92400e; }
+        .roadmap-day-body .pm-mission strong { color: #b45309; }
+        .roadmap-day.span-2 .roadmap-day-num { background: #0d9488; }
+        .tips-box { background: #fefce8; border: 1px solid #fde047; padding: 18px 22px; border-radius: 12px; margin-top: 28px; }
+        .tips-box h3 { margin-top: 0; color: #854d0e; font-size: 1rem; }
+        .tips-box ul { margin: 10px 0 0 0; padding-left: 20px; font-size: 0.9rem; color: #713f12; line-height: 1.7; }
+        .meeting-cta { text-align: center; margin-top: 32px; padding: 20px; background: #f0fdfa; border-radius: 12px; border: 1px dashed #5eead4; color: #0f766e; font-size: 0.95rem; }
+        .design-doc { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 24px 28px; margin-top: 20px; }
+        .design-doc h2 { margin-top: 0; }
+        .design-doc h3 { font-size: 1rem; margin: 20px 0 10px 0; color: #0f766e; }
+        .design-doc ul { margin: 8px 0; padding-left: 22px; font-size: 0.9rem; line-height: 1.65; }
+        .design-doc .cursor-tip { background: #1e293b; color: #e2e8f0; padding: 16px 20px; border-radius: 10px; font-size: 0.85rem; line-height: 1.6; margin-top: 16px; }
+        .design-doc .cursor-tip strong { color: #7dd3fc; }
+        .design-doc .cursor-tip code { background: #334155; padding: 2px 6px; border-radius: 4px; }
+    </style>
 </head>
 <body>
-  <header class="header">
-    <div class="header-inner">
-      <h1 class="logo">인적성 검사 <span>GSAT 스타일</span></h1>
-      <span class="header-badge">문제 풀이</span>
-    </div>
-  </header>
 
-  <main>
-    <article class="problem-card">
-      <div class="problem-header">
-        <span class="problem-number" id="problem-number">문제 1</span>
-        <span class="problem-category" id="problem-category">수리·자료해석</span>
-      </div>
-      <div class="problem-body">
-        <p class="problem-text" id="problem-text">
-          오늘의 추천 문제를 불러오는 중...
-        </p>
-        <ul class="choices" id="choices">
-          <li class="choice" data-value="1">
-            <span class="choice-num">1</span>
-            <span class="choice-text" id="choice1">보기 1</span>
-          </li>
-          <li class="choice" data-value="2">
-            <span class="choice-num">2</span>
-            <span class="choice-text" id="choice2">보기 2</span>
-          </li>
-          <li class="choice" data-value="3">
-            <span class="choice-num">3</span>
-            <span class="choice-text" id="choice3">보기 3</span>
-          </li>
-          <li class="choice" data-value="4">
-            <span class="choice-num">4</span>
-            <span class="choice-text" id="choice4">보기 4</span>
-          </li>
-          <li class="choice" data-value="5">
-            <span class="choice-num">5</span>
-            <span class="choice-text" id="choice5">보기 5</span>
-          </li>
-        </ul>
-        <div class="answer-area" id="answer-area">
-          <div class="answer-title">정답</div>
-          <div class="answer-value" id="answer-value"></div>
-          <div class="answer-title">해설</div>
-          <div class="explanation" id="explanation"></div>
+<div class="wrapper">
+    <header>
+        <h1>마케팅 자동화 툴 프로젝트 · 회의 가이드</h1>
+        <span class="badge">5일 스프린트 · 수요일 킥오프</span>
+        <p class="subtitle">한 상품의 마케팅 전략을 정할 때 필요한 결정들을, 팀원과 하나씩 회의로 정해 나가기 위한 체크리스트입니다.</p>
+    </header>
+
+    <div class="timeline-note">
+        <strong>📅 일정:</strong> 이번 주 수요일부터 총 5일. 오늘(화)에는 <strong>국가·제품군</strong>이 정해지고, 그걸 바탕으로 툴 기획·개발이 진행됩니다.
+    </div>
+
+    <!-- 1. 팀 & 기본 전제 -->
+    <h2>1. 팀 정체성 & 오늘 확정될 전제</h2>
+    <p class="section-desc">마케팅 회사에서 프로젝트를 시작할 때 가장 먼저 정하는 것들입니다.</p>
+    <ul class="checklist">
+        <li><input type="checkbox"> <strong>팀명:</strong> 우리 팀을 부를 이름 하나 정하기</li>
+        <li><input type="checkbox"> <strong>타겟 국가:</strong> 오늘 확정 예정 — 정해지면 바로 툴 기획에 반영</li>
+        <li><input type="checkbox"> <strong>제품군:</strong> 오늘 확정 예정 — 가격·단가·광고 콘셉트의 기준이 됨</li>
+        <li><input type="checkbox"> <strong>툴의 목적 한 줄:</strong> “우리 툴은 ○○ 국가의 △△ 제품 마케팅을 위해 가격·광고·시장조사를 한곳에서 관리/자동화한다” 수준으로 공유</li>
+    </ul>
+
+    <!-- 2. 한 상품 마케팅 전략에서 꼭 정하는 것들 -->
+    <h2>2. 한 상품 마케팅 전략에서 꼭 정하는 것들</h2>
+    <p class="section-desc">실무에서 한 상품의 마케팅 전략을 세울 때 결정하는 항목들입니다. 우리 툴에 어떤 기능을 넣을지 여기서 골라서 범위를 정하면 됩니다.</p>
+    <ul class="checklist">
+        <li><input type="checkbox"> <strong>타겟 시장·고객:</strong> 누구를 대상으로 할지 (B2B / B2C / 연령·지역 등)</li>
+        <li><input type="checkbox"> <strong>가격 전략:</strong> 제시 가격, 할인 구조, 통화(원화/달러 등)</li>
+        <li><input type="checkbox"> <strong>단가·원가:</strong> 제품 단가, 마진, 국가별/채널별 단가 비교</li>
+        <li><input type="checkbox"> <strong>광고 콘텐츠:</strong> 영상 광고, 포스터/이미지 광고 — 톤앤매너, 메시지, 규격</li>
+        <li><input type="checkbox"> <strong>시장 조사:</strong> 경쟁사, 시장 규모, 트렌드 — 툴에서 어떤 지표를 보여줄지</li>
+        <li><input type="checkbox"> <strong>랜딩/웹페이지:</strong> 상품 소개 페이지, CTA(구매·문의 등) 구조</li>
+        <li><input type="checkbox"> <strong>채널 전략:</strong> SNS, 검색, 디스플레이 등 어떤 채널을 툴에서 다룰지</li>
+    </ul>
+
+    <!-- 3. 툴 구조 (개발 아키텍처) -->
+    <h2>3. 툴 구조 (화면 구성 방식)</h2>
+    <p class="section-desc">5일 안에 나눠 개발하려면 “페이지를 나눌지, 한 화면에 모을지”를 먼저 정하는 게 좋습니다.</p>
+    <div class="grid">
+        <div class="option-card">
+            <span class="tag tag-easy">추천 · 5일 일정에 유리</span>
+            <h3>페이지 분리형 (기능별 페이지)</h3>
+            <p>가격/단가, 광고(영상·포스터), 시장조사, 웹페이지 등 기능별로 HTML 페이지를 나누고 메뉴로 연결.</p>
+            <ul style="font-size: 0.88rem; color: var(--secondary); margin: 12px 0 0 0; padding-left: 18px;">
+                <li>역할 나누기 쉽고 작업 충돌 적음</li>
+                <li>나중에 합치기 단순함</li>
+            </ul>
         </div>
-      </div>
-    </article>
-
-    <div class="action-area">
-      <button type="button" class="btn btn-check" id="btn-check" onclick="checkAnswer()">정답 확인</button>
-      <button type="button" class="btn btn-generate" id="btn-generate" onclick="generateProblem()">
-        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M12 5v14M5 12h14"/>
-        </svg>
-        문제 생성
-      </button>
-      <button type="button" class="btn btn-secondary" onclick="generateProblem()">다른 문제 보기</button>
+        <div class="option-card">
+            <span class="tag tag-hard">일정 타이트할 때 부담</span>
+            <h3>단일 페이지 통합형 (All-in-One 대시보드)</h3>
+            <p>한 화면에서 가격·광고·시장조사 등이 모두 연동되어 보이는 방식.</p>
+            <ul style="font-size: 0.88rem; color: var(--secondary); margin: 12px 0 0 0; padding-left: 18px;">
+                <li>완성도는 높지만 설계·통합 부담 큼</li>
+                <li>데이터 규격·상태 관리 공유 필수</li>
+            </ul>
+        </div>
     </div>
-  </main>
 
-  <footer class="footer">
-    인적성 검사 연습 · GSAT 스타일 UI
-  </footer>
+    <!-- 4. 역할 분담: 기능별 vs 2인1조 -->
+    <h2>4. 역할 분담 방식</h2>
+    <p class="section-desc">기능별로 쪼개서 담당할지, 2인 1조로 큰 카테고리씩 맡을지 정합니다.</p>
+    <div class="grid">
+        <div class="option-card">
+            <h3>방식 A. 기능별 역할 분담</h3>
+            <p>가격/단가 1명, 광고(영상·포스터) 1명, 시장조사 1명, 웹페이지 1명 식으로 기능 단위로 나눔.</p>
+            <ul style="font-size: 0.88rem; color: var(--secondary); margin: 10px 0 0 0; padding-left: 18px;">
+                <li>담당 영역이 명확함</li>
+                <li>인원이 4명 이상일 때 적합</li>
+            </ul>
+        </div>
+        <div class="option-card">
+            <h3>방식 B. 2인 1조 · 카테고리 단위</h3>
+            <p>예: 1조 = 가격/단가+시장조사, 2조 = 광고+랜딩페이지 — 조 단위로 큰 블록을 나눔.</p>
+            <ul style="font-size: 0.88rem; color: var(--secondary); margin: 10px 0 0 0; padding-left: 18px;">
+                <li>서로 백업·리뷰하기 좋음</li>
+                <li>인원이 4명일 때 2조로 나누기 적당</li>
+            </ul>
+        </div>
+    </div>
 
-  <script>
-    const categories = ['언어이해', '자료해석', '상황판단', '수리·자료해석', '공간지각'];
-    let problemIndex = 1;
-    let problems = [];
-    let currentProblem = null;
+    <h3>역할–담당 매핑 (정한 방식에 맞춰 이름만 채우기)</h3>
+    <table class="role-table">
+        <thead>
+            <tr>
+                <th>역할/기능</th>
+                <th>주요 담당 내용</th>
+                <th>담당자</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>PM/통합</strong></td>
+                <td>기획, 공통 데이터 규격(JSON 등), 코드 통합, 일정 관리</td>
+                <td><input type="text" placeholder="이름"></td>
+            </tr>
+            <tr>
+                <td><strong>가격·단가</strong></td>
+                <td>제시 가격, 단가, 국가별 비교, 차트/테이블</td>
+                <td><input type="text" placeholder="이름"></td>
+            </tr>
+            <tr>
+                <td><strong>광고 (영상·포스터)</strong></td>
+                <td>광고 콘텐츠 기획, 영상/포스터 생성·관리 UI</td>
+                <td><input type="text" placeholder="이름"></td>
+            </tr>
+            <tr>
+                <td><strong>시장 조사</strong></td>
+                <td>시장/경쟁사 데이터 구조, 시각화(표·차트)</td>
+                <td><input type="text" placeholder="이름"></td>
+            </tr>
+            <tr>
+                <td><strong>웹페이지/랜딩</strong></td>
+                <td>상품 소개 페이지, CTA, 공통 레이아웃·스타일</td>
+                <td><input type="text" placeholder="이름"></td>
+            </tr>
+            <tr>
+                <td><strong>데이터/공통</strong></td>
+                <td>국가·제품 정보 JSON/DB 구조, 다른 파트 보조</td>
+                <td><input type="text" placeholder="이름"></td>
+            </tr>
+        </tbody>
+    </table>
 
-    const fallbackProblems = [
-      { text: '45명의 학생이 반에 있는데, 모두가 서로 악수한다면 악수의 총 횟수는?', choices: ['990회', '1012회', '1035회', '990회', '900회'], category: '수리·자료해석' },
-      { text: '다음 빈칸에 들어갈 숫자는? 2, 4, 8, 16, __', choices: ['24', '28', '32', '36', '40'], category: '수리·자료해석' }
-    ];
+    <!-- 5. 기술·규격 -->
+    <h2>5. 기술 스택 & 공통 규칙</h2>
+    <p class="section-desc">각자 다른 AI/도구를 써도 되지만, <span class="highlight">합칠 때를 위해 공통 규격</span>만 미리 정해 두면 5일 차에 덜 헷갈립니다.</p>
+    <table>
+        <tr>
+            <th>항목</th>
+            <th>회의에서 정할 내용</th>
+            <th>예시</th>
+        </tr>
+        <tr>
+            <td><strong>CSS</strong></td>
+            <td>디자인 통일을 위해 어떤 방식 쓸지</td>
+            <td>Pure CSS / Tailwind / Bootstrap 중 하나</td>
+        </tr>
+        <tr>
+            <td><strong>JS</strong></td>
+            <td>수준과 범위</td>
+            <td>Vanilla JS 등</td>
+        </tr>
+        <tr>
+            <td><strong>데이터 저장</strong></td>
+            <td>가격·제품·국가 정보를 어디에 둘지</td>
+            <td>단일 JSON 파일 / LocalStorage 등</td>
+        </tr>
+        <tr>
+            <td><strong>파일/폴더 규칙</strong></td>
+            <td>페이지 파일명, 공통 이미지/폰트 경로</td>
+            <td>예: price.html, ads.html, research.html</td>
+        </tr>
+    </table>
 
-    function loadProblems() {
-      return fetch('problems.json')
-        .then(res => res.ok ? res.json() : Promise.reject())
-        .then(data => {
-          problems = (data.problems || []).map(p => ({
-            text: p.text,
-            choices: p.choices || [],
-            category: p.category || '수리·자료해석',
-            difficulty: p.difficulty,
-            correctAnswer: p.correctAnswer,
-            explanation: p.explanation || ''
-          }));
-          return problems.length;
-        })
-        .catch(() => {
-          problems = fallbackProblems.slice();
-          return 0;
-        });
-    }
+    <!-- 6. 브랜딩·톤앤매너 -->
+    <h2>6. 브랜딩 & 톤앤매너</h2>
+    <p class="section-desc">툴 UI와 광고 콘텐츠에 공통으로 쓸 기준입니다.</p>
+    <ul class="checklist">
+        <li><input type="checkbox"> <strong>테마:</strong> 다크 모드 vs 라이트 모드 (또는 툴만 라이트, 광고는 별도)</li>
+        <li><input type="checkbox"> <strong>메인 컬러:</strong> 팀/상품을 대표하는 색 하나 (예: 브랜드 블루, 그린)</li>
+        <li><input type="checkbox"> <strong>타겟 국가 문화:</strong> 할당 국가의 색·이미지 선호(금기 등) 반영 여부</li>
+    </ul>
 
-    function getRandomProblem() {
-      if (!problems.length) return null;
-      const idx = Math.floor(Math.random() * problems.length);
-      currentProblem = problems[idx];
-      return currentProblem;
-    }
+    <div class="decision-box">
+        <strong>한마디:</strong> 수요일에 국가·제품이 나오면 그날 바로 설계도에 넣고 개발에 들어가면 됩니다. 오늘 회의에서는 “팀명, 역할 방식, 툴에 넣을 기능 범위, 공통 규격”만 확정해 두어도 다음 날부터 진행이 훨씬 수월합니다.
+    </div>
 
-    function renderProblem(problem, isNew) {
-      if (!problem) return;
-      if (isNew) problemIndex += 1;
-      const num = document.getElementById('problem-number');
-      const cat = document.getElementById('problem-category');
-      const text = document.getElementById('problem-text');
-      num.textContent = '문제 ' + problemIndex;
-      cat.textContent = problem.category + (problem.difficulty === 'high' ? ' · 고난도' : '');
-      text.textContent = problem.text;
-      const choiceEls = document.querySelectorAll('.choice');
-      (problem.choices || []).forEach((c, i) => {
-        if (choiceEls[i]) {
-          choiceEls[i].querySelector('.choice-text').textContent = c;
-          choiceEls[i].classList.remove('selected', 'correct', 'wrong');
-        }
-      });
-      document.getElementById('answer-area').classList.remove('visible');
-    }
+    <!-- 7. 5일 계획표 (로드맵) -->
+    <h2>7. 우리가 가져갈 5일 계획표 (로드맵)</h2>
+    <p class="section-desc">데이터 전처리 → 개별 빌드 → 통합 → 영상·발표 흐름을 유지하면서, 마케팅 자동화 특성(시각적 임팩트, 국가별 맞춤)에 맞춘 일정입니다. HTML/JS/CSS 사용 시 통합 단계를 명확히 두는 것이 중요합니다.</p>
 
-    function checkAnswer() {
-      if (!currentProblem) return;
-      const choiceEls = document.querySelectorAll('.choice');
-      const selected = Array.from(choiceEls).findIndex(el => el.classList.contains('selected'));
-      const correct = currentProblem.correctAnswer;
-      choiceEls.forEach((el, i) => {
-        el.classList.remove('correct', 'wrong');
-        if (correct >= 0 && i === correct) el.classList.add('correct');
-        else if (selected >= 0 && i === selected && i !== correct) el.classList.add('wrong');
-      });
-      const area = document.getElementById('answer-area');
-      const ansVal = document.getElementById('answer-value');
-      const expl = document.getElementById('explanation');
-      if (correct >= 0 && currentProblem.choices && currentProblem.choices[correct]) {
-        ansVal.textContent = (correct + 1) + '번. ' + currentProblem.choices[correct];
-      } else {
-        ansVal.textContent = '자료 확인이 필요한 문제입니다.';
-      }
-      expl.textContent = currentProblem.explanation || '해설이 없습니다.';
-      area.classList.add('visible');
-    }
+    <div class="roadmap-intro">
+        <strong>📌 수요일 회의 제안 멘트:</strong> "저번 ERP 때처럼 효율적으로 가되, 이번엔 한 화면에서 모든 게 돌아가는 '자동화 툴'을 만들자."
+    </div>
 
-    function generateProblem() {
-      const btn = document.getElementById('btn-generate');
-      btn.classList.add('loading');
-      btn.innerHTML = '<span class="spinner"></span> 생성 중...';
-      const problem = getRandomProblem();
-      if (problem) {
-        renderProblem(problem, true);
-      }
-      setTimeout(() => {
-        if (!problem) {
-          const p = getRandomProblem();
-          if (p) renderProblem(p, true);
-        }
-        btn.classList.remove('loading');
-        btn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> 문제 생성';
-      }, 400);
-    }
+    <div class="roadmap">
+        <div class="roadmap-day">
+            <div class="roadmap-day-header">
+                <div class="roadmap-day-num">1</div>
+                <div>
+                    <div class="roadmap-day-title">Day 1: 데이터 소싱 및 규격화 (Data Strategy)</div>
+                    <div class="roadmap-day-sub">수요일 · 국가·제품 확정 후 즉시 착수</div>
+                </div>
+            </div>
+            <div class="roadmap-day-body">
+                <ul>
+                    <li>관세청, KOTRA, 해당 국가 이커머스 등에서 <strong>시장 데이터</strong> 수집 (환율, 단가, 경쟁사)</li>
+                    <li><strong>마케팅 페르소나</strong> 설정 (타겟 고객, 채널)</li>
+                </ul>
+                <div class="pm-mission"><strong>PM 핵심 미션:</strong> 수집된 데이터를 담을 <strong>공통 JSON 규격 확정</strong>. 예: <code>country_data.json</code> 안에 [관세율, 물류비, 선호 색상, 금기어] 등 정의. 단순 전처리를 넘어, AI가 마케팅 문구 생성 시 참조할 <strong>프롬프트용 데이터</strong>까지 미리 정리.</div>
+            </div>
+        </div>
 
-    document.querySelectorAll('.choice').forEach(el => {
-      el.addEventListener('click', function() {
-        document.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
-        this.classList.add('selected');
-      });
-    });
+        <div class="roadmap-day span-2">
+            <div class="roadmap-day-header">
+                <div class="roadmap-day-num">2–3</div>
+                <div>
+                    <div class="roadmap-day-title">Day 2–3: 직무별 모듈 빌드 (Module Development)</div>
+                    <div class="roadmap-day-sub">목·금 · 각자 담당 파트 로직 구현</div>
+                </div>
+            </div>
+            <div class="roadmap-day-body">
+                <ul>
+                    <li><strong>광고/콘텐츠:</strong> AI 이미지 생성 및 포스터 디자인 코드</li>
+                    <li><strong>단가/물류:</strong> 수입 관세·마진율 계산기 구현</li>
+                    <li><strong>영업/메일:</strong> 바이어 설득용 자동 메일 작성 엔진 (또는 툴 내 메일 시뮬레이션)</li>
+                    <li><strong>시장조사·랜딩:</strong> 시장 데이터 시각화, 상품 소개 페이지</li>
+                </ul>
+                <div class="pm-mission"><strong>PM 역할:</strong> 각 팀원이 만드는 코드가 <strong>독립적인 모듈(함수/페이지) 형태</strong>로 작성되도록 가이드. 나중에 한 화면으로 합칠 때 끼워 넣기 쉽게.</div>
+            </div>
+        </div>
 
-    window.addEventListener('DOMContentLoaded', () => {
-      loadProblems().then(() => {
-        const problem = getRandomProblem();
-        if (problem) renderProblem(problem, false);
-      });
-    });
-  </script>
+        <div class="roadmap-day span-2">
+            <div class="roadmap-day-header">
+                <div class="roadmap-day-num">3–4</div>
+                <div>
+                    <div class="roadmap-day-title">Day 3–4: Cursor 기반 통합 및 고도화 (System Integration)</div>
+                    <div class="roadmap-day-sub">금 · 토 오전 · PM 주도 통합</div>
+                </div>
+            </div>
+            <div class="roadmap-day-body">
+                <ul>
+                    <li>PM이 Cursor로 각 팀원의 <strong>파편화된 코드를 main_dashboard.html(또는 메인 페이지)로 통합</strong></li>
+                    <li>통합 포인트: 국가 선택 시 <strong>[단가 계산] → [광고 생성] → [메일 준비]</strong>가 한 화면에서 유기적으로 연결되도록 UI 조정</li>
+                    <li><strong>영상팀 병행:</strong> 완성된 모듈부터 화면 녹화 및 마케팅 시나리오 영상 촬영 시작</li>
+                </ul>
+                <div class="pm-mission"><strong>PM 포인트:</strong> HTML/CSS를 쓰므로 <strong>대시보드 심미적 완성도</strong>에 집중하면 '진짜 서비스'처럼 보임. 사용자 입력에 따라 AI가 포스터 문구를 실시간으로 바꿔 주는 기능이 있으면 발표 임팩트 ↑</div>
+            </div>
+        </div>
+
+        <div class="roadmap-day">
+            <div class="roadmap-day-header">
+                <div class="roadmap-day-num">4</div>
+                <div>
+                    <div class="roadmap-day-title">Day 4 오후: 1차 완성 및 시뮬레이션 (Final QA)</div>
+                    <div class="roadmap-day-sub">토요일 오후</div>
+                </div>
+            </div>
+            <div class="roadmap-day-body">
+                <ul>
+                    <li>전체 시스템 작동 확인, 영상 편집 마무리</li>
+                    <li>체크: "<em>해당 국가에서는 이 제품이 ○○처럼 인식될까?</em>" 같은 <strong>국가별 특화 로직</strong> 반영 여부 최종 검토</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="roadmap-day">
+            <div class="roadmap-day-header">
+                <div class="roadmap-day-num">5</div>
+                <div>
+                    <div class="roadmap-day-title">Day 5: 발표 및 성과 공유 (Presentation)</div>
+                    <div class="roadmap-day-sub">일요일(또는 D+5일)</div>
+                </div>
+            </div>
+            <div class="roadmap-day-body">
+                <ul>
+                    <li>완성된 자동화 시스템 시연 + 마케팅 성과 예측 발표</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tips-box">
+        <h3>💡 이번 프로젝트에서 업그레이드할 'PM의 한 수' (3가지)</h3>
+        <ul>
+            <li><strong>Streamlit → HTML 통합:</strong> 통합이 조금 더 정교해지므로, PM이 Cursor로 <strong>전체 대시보드 심미적 완성도</strong>를 챙기면 훨씬 '진짜 서비스'처럼 보입니다.</li>
+            <li><strong>데이터의 동적 활용:</strong> CSV만 읽는 수준을 넘어, <strong>사용자 입력값에 따라 AI가 마케팅 포스터 문구를 실시간으로 바꿔 주는 기능</strong>을 넣으면 발표 반응이 좋습니다.</li>
+            <li><strong>영상 제작 시점:</strong> 코드가 다 합쳐지기 전이라도, 각 팀원의 <strong>개별 모듈 작동 영상</strong>을 미리 찍어 두세요. 나중에 통합본과 합치면 풍성한 발표 자료가 됩니다.</li>
+        </ul>
+    </div>
+
+    <div class="meeting-cta">
+        <strong>🚀 팀원들에게 공유할 일정표</strong>는 위 5일 로드맵을 그대로 활용하시면 됩니다. 수요일 회의에서 "우리가 가져갈 계획"으로 함께 짚어 보세요.
+    </div>
+
+    <!-- 8. 프로젝트 핵심 설계도 (Cursor / 팀 공유용) -->
+    <div class="design-doc">
+        <h2>8. 프로젝트 핵심 설계도 (Cursor · 팀 공유용)</h2>
+        <p class="section-desc">Notion, README.md, .cursorrules 등에 붙여 넣어 두면 AI가 프로젝트 맥락을 이해하는 데 도움이 됩니다.</p>
+
+        <p><strong>🚀 프로젝트명:</strong> AI 기반 글로벌 마케팅 자동화 시스템</p>
+
+        <h3>1. 프로젝트 개요</h3>
+        <ul>
+            <li><strong>목표:</strong> 특정 국가/제품군 할당 시, 시장 분석 → 콘텐츠 제작 → 비즈니스 로직까지 한 번에 수행하는 원페이지 마케팅 대시보드 구축.</li>
+            <li><strong>핵심 컨셉:</strong> "데이터로 설득하고, AI로 시각화하며, 시스템으로 자동화한다."</li>
+        </ul>
+
+        <h3>2. 팀 구성 및 R&amp;R (6인)</h3>
+        <table style="font-size: 0.88rem;">
+            <tr><th>역할</th><th>담당</th></tr>
+            <tr><td><strong>PM (통합·관리)</strong></td><td>시스템 아키텍처 설계, 모듈 통합(Cursor), 팀 페이지·일정 관리</td></tr>
+            <tr><td><strong>광고/콘텐츠 (2인)</strong></td><td>AI 홍보 영상, 노래(Suno), 광고 포스터 제작 및 UI</td></tr>
+            <tr><td><strong>프로세스 (2명)</strong></td><td>시장 데이터 API 연동, 관세/환율 계산, 자동 계약서 생성 엔진</td></tr>
+            <tr><td><strong>검증/인텔리전스 (1명)</strong></td><td>Perplexity 시장 조사, 데이터 팩트체크, 신뢰도 분석 리포트</td></tr>
+        </table>
+
+        <h3>3. 개발 로드맵 (요약)</h3>
+        <p>§7 5일 계획표와 동일. Day 1 = Strategy(전략·JSON 규격) → Day 2–3 = Development(팀별 모듈) → Day 4 = Integration(Cursor 통합·영상) → Day 5 = Showcase(시연·발표).</p>
+
+        <h3>4. 기술 스택 및 협업 규칙</h3>
+        <ul>
+            <li><strong>Data Single Source:</strong> 모든 모듈은 <code>shared_data.json</code> 규격 준수.</li>
+            <li><strong>CSS 접두사:</strong> 스타일 충돌 방지용 팀별 접두사 (예: .ad-, .pro-, .chk-).</li>
+            <li><strong>Modular Design:</strong> 각 파트는 독립 폴더에서 <code>index.html</code>로 구동 가능하게, 핵심 기능은 함수 단위 모듈화.</li>
+            <li>AI 도구: Perplexity(시장 조사), Suno/Udio(오디오), ClovaNote(회의 기록) 등 팀 합의대로.</li>
+        </ul>
+
+        <h3>5. 최종 결과물 구성 (원페이지 대시보드)</h3>
+        <ul>
+            <li><strong>Header:</strong> 국가/제품 선택, 프로젝트 로고.</li>
+            <li><strong>Visual (좌):</strong> 생성형 AI 미디어 — 영상/노래/포스터.</li>
+            <li><strong>Logic (우):</strong> 비즈니스 계산기, 문서 생성기.</li>
+            <li><strong>Evidence (하단):</strong> 데이터 출처·신뢰도 검증 리포트(Perplexity 기반).</li>
+        </ul>
+
+        <div class="cursor-tip">
+            <strong>💡 Cursor 활용 팁</strong><br>
+            국가가 정해지면 AI에게 첫 명령 예시:<br>
+            "<em>위 가이드라인에 맞춰서, 팀원들이 공통 사용할 <code>shared_data.json</code> 표준 규격을 설계해 줘. 그리고 광고·로직·검증 3대 모듈이 들어갈 레이아웃이 잡힌 기본 <code>index.html</code> 틀을 만들어 줘.</em>"
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
