@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>인적성 검사 | GSAT 스타일</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --gsat-blue: #1e3a8a;
+      --gsat-blue-light: #2563eb;
+      --gsat-blue-bg: #eff6ff;
+      --gsat-border: #e2e8f0;
+      --gsat-text: #1e293b;
+      --gsat-text-muted: #64748b;
+      --gsat-white: #ffffff;
+      --gsat-shadow: 0 1px 3px rgba(30, 58, 138, 0.08);
+      --gsat-shadow-lg: 0 10px 40px rgba(30, 58, 138, 0.12);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: linear-gradient(165deg, #f8fafc 0%, #f1f5f9 50%, #e2e8f0 100%);
+      color: var(--gsat-text);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* 헤더 */
+    .header {
+      background: var(--gsat-white);
+      border-bottom: 1px solid var(--gsat-border);
+      padding: 18px 24px;
+      box-shadow: var(--gsat-shadow);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .logo {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--gsat-blue);
+      letter-spacing: -0.5px;
+    }
+
+    .logo span {
+      color: var(--gsat-blue-light);
+      font-weight: 500;
+    }
+
+    .header-badge {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--gsat-blue);
+      background: var(--gsat-blue-bg);
+      padding: 6px 12px;
+      border-radius: 999px;
+      letter-spacing: 0.5px;
+    }
+
+    /* 메인 */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 32px 24px 48px;
+    }
+
+    /* 문제 카드 */
+    .problem-card {
+      background: var(--gsat-white);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--gsat-shadow-lg);
+      border: 1px solid var(--gsat-border);
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .problem-header {
+      background: linear-gradient(135deg, var(--gsat-blue) 0%, var(--gsat-blue-light) 100%);
+      color: var(--gsat-white);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .problem-number {
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      opacity: 0.95;
+    }
+
+    .problem-category {
+      font-size: 0.8rem;
+      opacity: 0.85;
+      font-weight: 500;
+    }
+
+    .problem-body {
+      padding: 32px 28px 28px;
+    }
+
+    .problem-text {
+      font-size: 1.12rem;
+      font-weight: 500;
+      color: var(--gsat-text);
+      margin: 0 0 24px;
+      line-height: 1.75;
+      letter-spacing: -0.2px;
+    }
+
+    .choices {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .choice {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 14px 18px;
+      margin-bottom: 10px;
+      background: var(--gsat-blue-bg);
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .choice:hover {
+      background: #dbeafe;
+      border-color: var(--gsat-blue-light);
+    }
+
+    .choice-num {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gsat-white);
+      color: var(--gsat-blue);
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: 50%;
+      border: 1px solid var(--gsat-border);
+    }
+
+    .choice-text {
+      font-size: 1rem;
+      color: var(--gsat-text);
+      padding-top: 2px;
+    }
+
+    /* 버튼 영역 */
+    .action-area {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+      justify-content: center;
+      margin-top: 32px;
+      padding-top: 24px;
+      border-top: 1px solid var(--gsat-border);
+    }
+
+    .btn {
+      appearance: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: -0.2px;
+      border-radius: var(--radius-md);
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .btn-generate {
+      background: linear-gradient(135deg, var(--gsat-blue) 0%, var(--gsat-blue-light) 100%);
+      color: var(--gsat-white);
+      padding: 16px 36px;
+      box-shadow: 0 4px 14px rgba(30, 58, 138, 0.35);
+    }
+
+    .btn-generate:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(30, 58, 138, 0.4);
+    }
+
+    .btn-generate:active {
+      transform: translateY(0);
+    }
+
+    .btn-generate.loading {
+      pointer-events: none;
+      opacity: 0.85;
+    }
+
+    .btn-generate .icon {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      flex-shrink: 0;
+    }
+
+    .btn-secondary {
+      background: var(--gsat-white);
+      color: var(--gsat-blue);
+      padding: 14px 28px;
+      border: 2px solid var(--gsat-blue-light);
+    }
+
+    .btn-secondary:hover {
+      background: var(--gsat-blue-bg);
+    }
+
+    /* 푸터 */
+    .footer {
+      text-align: center;
+      padding: 24px 16px;
+      font-size: 0.85rem;
+      color: var(--gsat-text-muted);
+    }
+
+    /* 반응형 */
+    @media (max-width: 600px) {
+      .header-inner {
+        justify-content: center;
+      }
+
+      main {
+        padding: 20px 16px 32px;
+      }
+
+      .problem-header,
+      .problem-body {
+        padding-left: 20px;
+        padding-right: 20px;
+      }
+
+      .problem-text {
+        font-size: 1.05rem;
+      }
+
+      .btn-generate {
+        padding: 14px 28px;
+        width: 100%;
+        max-width: 280px;
+      }
+    }
+
+    /* 로딩 스피너 */
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(255,255,255,0.3);
+      border-top-color: #fff;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* 선택 시 */
+    .choice.selected .choice-num {
+      background: var(--gsat-blue);
+      color: var(--gsat-white);
+      border-color: var(--gsat-blue);
+    }
+
+    .choice.selected {
+      background: #dbeafe;
+      border-color: var(--gsat-blue-light);
+    }
+
+    .choice.correct .choice-num { background: #059669; color: #fff; border-color: #059669; }
+    .choice.correct { background: #d1fae5; border-color: #10b981; }
+    .choice.wrong .choice-num { background: #dc2626; color: #fff; border-color: #dc2626; }
+    .choice.wrong { background: #fee2e2; border-color: #ef4444; }
+
+    .answer-area {
+      margin-top: 20px;
+      padding: 20px;
+      background: var(--gsat-blue-bg);
+      border-radius: var(--radius-md);
+      border: 1px solid var(--gsat-border);
+      display: none;
+    }
+    .answer-area.visible { display: block; }
+    .answer-area .answer-title { font-weight: 700; color: var(--gsat-blue); margin-bottom: 8px; font-size: 0.95rem; }
+    .answer-area .answer-value { font-weight: 600; color: var(--gsat-text); margin-bottom: 12px; }
+    .answer-area .explanation { font-size: 0.95rem; color: var(--gsat-text); line-height: 1.7; white-space: pre-line; }
+    .btn-check {
+      background: #059669;
+      color: #fff;
+      padding: 12px 24px;
+      margin-top: 8px;
+    }
+    .btn-check:hover { background: #047857; }
+    .problem-meta { font-size: 0.8rem; color: var(--gsat-text-muted); margin-left: 8px; }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="header-inner">
+      <h1 class="logo">인적성 검사 <span>GSAT 스타일</span></h1>
+      <span class="header-badge">문제 풀이</span>
+    </div>
+  </header>
+
+  <main>
+    <article class="problem-card">
+      <div class="problem-header">
+        <span class="problem-number" id="problem-number">문제 1</span>
+        <span class="problem-category" id="problem-category">수리·자료해석</span>
+      </div>
+      <div class="problem-body">
+        <p class="problem-text" id="problem-text">
+          오늘의 추천 문제를 불러오는 중...
+        </p>
+        <ul class="choices" id="choices">
+          <li class="choice" data-value="1">
+            <span class="choice-num">1</span>
+            <span class="choice-text" id="choice1">보기 1</span>
+          </li>
+          <li class="choice" data-value="2">
+            <span class="choice-num">2</span>
+            <span class="choice-text" id="choice2">보기 2</span>
+          </li>
+          <li class="choice" data-value="3">
+            <span class="choice-num">3</span>
+            <span class="choice-text" id="choice3">보기 3</span>
+          </li>
+          <li class="choice" data-value="4">
+            <span class="choice-num">4</span>
+            <span class="choice-text" id="choice4">보기 4</span>
+          </li>
+          <li class="choice" data-value="5">
+            <span class="choice-num">5</span>
+            <span class="choice-text" id="choice5">보기 5</span>
+          </li>
+        </ul>
+        <div class="answer-area" id="answer-area">
+          <div class="answer-title">정답</div>
+          <div class="answer-value" id="answer-value"></div>
+          <div class="answer-title">해설</div>
+          <div class="explanation" id="explanation"></div>
+        </div>
+      </div>
+    </article>
+
+    <div class="action-area">
+      <button type="button" class="btn btn-check" id="btn-check" onclick="checkAnswer()">정답 확인</button>
+      <button type="button" class="btn btn-generate" id="btn-generate" onclick="generateProblem()">
+        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M5 12h14"/>
+        </svg>
+        문제 생성
+      </button>
+      <button type="button" class="btn btn-secondary" onclick="generateProblem()">다른 문제 보기</button>
+    </div>
+  </main>
+
+  <footer class="footer">
+    인적성 검사 연습 · GSAT 스타일 UI
+  </footer>
+
+  <script>
+    const categories = ['언어이해', '자료해석', '상황판단', '수리·자료해석', '공간지각'];
+    let problemIndex = 1;
+    let problems = [];
+    let currentProblem = null;
+
+    const fallbackProblems = [
+      { text: '45명의 학생이 반에 있는데, 모두가 서로 악수한다면 악수의 총 횟수는?', choices: ['990회', '1012회', '1035회', '990회', '900회'], category: '수리·자료해석' },
+      { text: '다음 빈칸에 들어갈 숫자는? 2, 4, 8, 16, __', choices: ['24', '28', '32', '36', '40'], category: '수리·자료해석' }
+    ];
+
+    function loadProblems() {
+      return fetch('problems.json')
+        .then(res => res.ok ? res.json() : Promise.reject())
+        .then(data => {
+          problems = (data.problems || []).map(p => ({
+            text: p.text,
+            choices: p.choices || [],
+            category: p.category || '수리·자료해석',
+            difficulty: p.difficulty,
+            correctAnswer: p.correctAnswer,
+            explanation: p.explanation || ''
+          }));
+          return problems.length;
+        })
+        .catch(() => {
+          problems = fallbackProblems.slice();
+          return 0;
+        });
+    }
+
+    function getRandomProblem() {
+      if (!problems.length) return null;
+      const idx = Math.floor(Math.random() * problems.length);
+      currentProblem = problems[idx];
+      return currentProblem;
+    }
+
+    function renderProblem(problem, isNew) {
+      if (!problem) return;
+      if (isNew) problemIndex += 1;
+      const num = document.getElementById('problem-number');
+      const cat = document.getElementById('problem-category');
+      const text = document.getElementById('problem-text');
+      num.textContent = '문제 ' + problemIndex;
+      cat.textContent = problem.category + (problem.difficulty === 'high' ? ' · 고난도' : '');
+      text.textContent = problem.text;
+      const choiceEls = document.querySelectorAll('.choice');
+      (problem.choices || []).forEach((c, i) => {
+        if (choiceEls[i]) {
+          choiceEls[i].querySelector('.choice-text').textContent = c;
+          choiceEls[i].classList.remove('selected', 'correct', 'wrong');
+        }
+      });
+      document.getElementById('answer-area').classList.remove('visible');
+    }
+
+    function checkAnswer() {
+      if (!currentProblem) return;
+      const choiceEls = document.querySelectorAll('.choice');
+      const selected = Array.from(choiceEls).findIndex(el => el.classList.contains('selected'));
+      const correct = currentProblem.correctAnswer;
+      choiceEls.forEach((el, i) => {
+        el.classList.remove('correct', 'wrong');
+        if (correct >= 0 && i === correct) el.classList.add('correct');
+        else if (selected >= 0 && i === selected && i !== correct) el.classList.add('wrong');
+      });
+      const area = document.getElementById('answer-area');
+      const ansVal = document.getElementById('answer-value');
+      const expl = document.getElementById('explanation');
+      if (correct >= 0 && currentProblem.choices && currentProblem.choices[correct]) {
+        ansVal.textContent = (correct + 1) + '번. ' + currentProblem.choices[correct];
+      } else {
+        ansVal.textContent = '자료 확인이 필요한 문제입니다.';
+      }
+      expl.textContent = currentProblem.explanation || '해설이 없습니다.';
+      area.classList.add('visible');
+    }
+
+    function generateProblem() {
+      const btn = document.getElementById('btn-generate');
+      btn.classList.add('loading');
+      btn.innerHTML = '<span class="spinner"></span> 생성 중...';
+      const problem = getRandomProblem();
+      if (problem) {
+        renderProblem(problem, true);
+      }
+      setTimeout(() => {
+        if (!problem) {
+          const p = getRandomProblem();
+          if (p) renderProblem(p, true);
+        }
+        btn.classList.remove('loading');
+        btn.innerHTML = '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> 문제 생성';
+      }, 400);
+    }
+
+    document.querySelectorAll('.choice').forEach(el => {
+      el.addEventListener('click', function() {
+        document.querySelectorAll('.choice').forEach(c => c.classList.remove('selected'));
+        this.classList.add('selected');
+      });
+    });
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadProblems().then(() => {
+        const problem = getRandomProblem();
+        if (problem) renderProblem(problem, false);
+      });
+    });
+  </script>
+</body>
+</html>
